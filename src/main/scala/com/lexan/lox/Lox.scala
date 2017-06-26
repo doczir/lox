@@ -5,7 +5,7 @@ import scala.io.StdIn
 object Lox {
 
   def runRepl(): Unit = {
-    Stream.continually(StdIn.readLine("|>")).takeWhile(_ != null).foreach{ line =>
+    Stream.continually(Option(StdIn.readLine("|>"))).takeWhile(_.isDefined).map(_.get).foreach{ line =>
 
       if(line startsWith ":")
         handleCommand(line)
