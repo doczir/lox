@@ -6,10 +6,12 @@ import org.scalatest.{FlatSpec, Matchers}
 class SourceSpec extends FlatSpec with Matchers with PropertyChecks {
   "A source span" should "calculate it's length properly" in {
     forAll { (idx1: Int, idx2: Int) =>
-      whenever(idx1 < idx2 && idx1 >= 0) {
+      whenever(idx1 >= 0 && idx2 >= 0) {
+        val start = if(idx1 < idx2) idx1 else idx2
+        val end = if(idx1 < idx2) idx2 else idx1
 
-        val sp = SourceSpan(SourceLocation(idx1), SourceLocation(idx2))
-        sp.length should equal(idx2 - idx1)
+        val sp = SourceSpan(SourceLocation(start), SourceLocation(end))
+        sp.length should equal(end - start)
 
       }
     }
