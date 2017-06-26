@@ -1,6 +1,6 @@
 package com.lexan.lox
 
-class Main {
+object Main {
   def main(args: Array[String]): Unit = {
     Lox.runRepl()
   }
